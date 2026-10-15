@@ -27,6 +27,40 @@ Vec2 Vec2::operator/(float c) const{
     return Vec2(x/c,y/c);
 }
 
+Vec2 & Vec2::operator=(const Vec2 & v){
+    x = v.x;
+    y = v.y;
+
+    return *this;
+}
+
+Vec2 & Vec2::operator+=(const Vec2 & v){
+    x += v.x;
+    y += v.y;
+
+    return *this;
+}
+
+Vec2 & Vec2::operator-=(const Vec2 & v){
+    return *this += (-1*v);
+}
+
+Vec2 & Vec2::operator*=(float c){
+    x *= c;
+    y *= c;
+
+    return *this;
+}
+
+Vec2 & Vec2::operator/=(float c){
+    return *this *= (1/c);
+}
+
+float Vec2::operator[](int i) const {
+    if(i) return y;
+    else return x;
+}
+
 
 // -- smth
 Vec2 Vec2::rotated(float th) const{

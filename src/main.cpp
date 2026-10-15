@@ -17,6 +17,7 @@ int main()
 
     std::cout << v3 << v3.rotated(PI/4) << v3.rotated(PI/4).angle() << std::endl;
 
+    std::cout << v2[0] << " " << v2[1] << std::endl;
     
     
 /*
