@@ -69,12 +69,22 @@ const float Vec2::operator[] (int i) const{
 
 // -- smth
 Vec2 Vec2::rotated(float th) const{
-    float s = std::sin(-th), c = std::cos(-th);     //Not supposed to be -th but rotation became clockwise
+    float s = std::sin(-th), c = std::cos(-th);     //-theta because screen works as IVth quadrant as base
     return Vec2(x*c - y*s, x*s + y*c);
 }
 
 float Vec2::angle() const{
-    return std::atan(y/x);
+    return std::atan2(-y,x);
+}
+
+float Vec2::magn() const{
+    return std::sqrt(x*x + y*y);
+}
+
+Vec2 Vec2::norm() const{
+    float c = this->magn();
+    if(c) return *this / c;
+    else return *this;
 }
 
 

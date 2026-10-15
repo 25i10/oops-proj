@@ -1,10 +1,11 @@
 #include "entity.h"
 #include <raylib.h>
 
-Entity::Entity(int x, int y){
+Entity::Entity(int x, int y, int s){
     pos[0] = x;
     pos[1] = y;
     dir = Vec2(1,0);
+    spd = s;
 }
 
 Entity::~Entity(){}

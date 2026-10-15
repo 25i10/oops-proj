@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <iostream>
-#include "entity.h"
+
+#include "player.h"
 
 
 const int screenWidth = 800;
@@ -19,18 +20,17 @@ int main()
 
     std::cout << v2[0] << " " << v2[1] << std::endl;
     
-    
 
     InitWindow(screenWidth, screenHeight, "a!");
     SetTargetFPS(60);
 
-    Entity e(100,100);
+    Player e(100,100);
 
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
-        ClearBackground(SKYBLUE);
+        ClearBackground(BLACK);
 
         e.step();
         e.draw();

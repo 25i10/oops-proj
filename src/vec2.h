@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VEC2
+#define VEC2
 #include <iostream>
 
 class Vec2 {
@@ -28,8 +29,12 @@ public:
     // Functions
     Vec2 rotated(float) const;
     float angle() const;
+    float magn() const;
+    Vec2 norm() const;
 
 private:
     float x;
     float y;
 };
+
+#endif
