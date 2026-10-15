@@ -1,10 +1,10 @@
 #include <raylib.h>
 #include <iostream>
-#include "vec2.h"
+#include "entity.h"
 
 
 const int screenWidth = 800;
-const int screenHeight = 600;
+const int screenHeight = 800;
 
 int main() 
 {
@@ -20,11 +20,11 @@ int main()
     std::cout << v2[0] << " " << v2[1] << std::endl;
     
     
-/*
+
     InitWindow(screenWidth, screenHeight, "a!");
     SetTargetFPS(60);
 
-    
+    Entity e(100,100);
 
 
     while (!WindowShouldClose())
@@ -32,14 +32,15 @@ int main()
         BeginDrawing();
         ClearBackground(SKYBLUE);
 
-
-        
+        e.step();
+        e.draw();
 
 
         EndDrawing();
     }
 
     CloseWindow();
-*/
+
+
     return 0;
 }

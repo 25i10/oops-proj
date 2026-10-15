@@ -56,7 +56,12 @@ Vec2 & Vec2::operator/=(float c){
     return *this *= (1/c);
 }
 
-float Vec2::operator[](int i) const {
+float & Vec2::operator[](int i) {
+    if(i) return y;
+    else return x;
+}
+
+const float Vec2::operator[] (int i) const{
     if(i) return y;
     else return x;
 }
@@ -64,7 +69,7 @@ float Vec2::operator[](int i) const {
 
 // -- smth
 Vec2 Vec2::rotated(float th) const{
-    float s = std::sin(th), c = std::cos(th);
+    float s = std::sin(-th), c = std::cos(-th);     //Not supposed to be -th but rotation became clockwise
     return Vec2(x*c - y*s, x*s + y*c);
 }
 

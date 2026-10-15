@@ -21,7 +21,9 @@ public:
     Vec2 & operator *= (float);
     Vec2 & operator /= (float);
 
-    float operator[] (int) const;
+    float & operator[] (int);
+    const float operator [] (int) const;
+
 
     // Functions
     Vec2 rotated(float) const;
