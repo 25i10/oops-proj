@@ -24,8 +24,9 @@ int main()
     InitWindow(screenWidth, screenHeight, "a!");
     SetTargetFPS(60);
 
-    Player e(100,100);
-
+    
+    Player p(100,700);
+    Entity e(100,100);
 
     while (!WindowShouldClose())
     {
@@ -34,6 +35,9 @@ int main()
 
         e.step();
         e.draw();
+        
+        p.step();
+        p.draw();
 
 
         EndDrawing();
