@@ -1,12 +1,16 @@
 #include <raylib.h>
 #include <iostream>
+#include <vector>
 
 #include "player.h"
-#include "destroyable.h"
+#include "asteroid.h"
 
 
 const int screenWidth = 800;
 const int screenHeight = 800;
+
+
+std::vector<Asteroid> asts;
 
 int main() 
 {
@@ -27,24 +31,45 @@ int main()
 
     
     Player p(100,700);
-    Destroyable e(100,100);
+
+    std::vector<Asteroid*> asts;
+    asts.push_back(new Asteroid(100,100));
+    asts.push_back(new Asteroid(200,100));
+
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        e.step();
-        e.draw();
-        
+        if(IsKeyPressed(KEY_SPACE)) asts.push_back(new Asteroid(100,100));
+
+        for(std::size_t i = 0; i < asts.size(); i++){
+            Asteroid *e = asts[i];
+
+            e->step();
+            e->draw();
+
+            if(!e->isActive()) {
+                delete asts[i];
+                asts.erase(asts.begin() + i);
+            }
+
+            if(p.collide(e->getH())) std::cout << "abd";
+        }
+
         p.step();
         p.draw();
-
-        if (p.collide(e.getH())) std::cout << "abd";
 
 
         EndDrawing();
     }
+    
+
+    for(Asteroid* e : asts){
+        delete e;
+    }
+    asts.clear();
 
     CloseWindow();
 

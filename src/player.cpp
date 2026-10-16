@@ -2,12 +2,11 @@
 #include <raylib.h>
 #include <iostream>
 
-Texture2D t;
-
+Texture2D plr;
 
 Player::Player(int x, int y):Entity(x,y,8){
-    t = LoadTexture("res/plr.png");
-    sprDims = sprScale * Vec2(t.width,t.height);
+    plr = LoadTexture("res/plr.png");
+    sprDims = sprScale * Vec2(plr.width,plr.height);
 
     //Hardcoded hitbox
     Vec2 hDim(50,40);
@@ -17,14 +16,12 @@ Player::Player(int x, int y):Entity(x,y,8){
 }
 
 Player::~Player(){
-    UnloadTexture(t);
+    UnloadTexture(plr);
 }
 
 void Player::step(){
     dir = Vec2(IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT),IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP)).norm();
     pos += spd/(1 + IsKeyDown(KEY_X)) * dir;
-    
-    h.moveCorner(pos - h.getDims()/2 + h.getOffset());
 
     const int screenWidth = GetScreenWidth();
     const int screenHeight = GetScreenHeight();
@@ -35,6 +32,7 @@ void Player::step(){
     if(pos[1]+32 > screenHeight) pos[1] = screenHeight-32;
     if(pos[1]-32 < 0) pos[1] = 32;
 
+    h.moveCorner(pos - h.getDims()/2 + h.getOffset());
     
 
 }
@@ -44,6 +42,6 @@ bool Player::collide(const Hitbox & e) const{
 }
 
 void Player::draw() const{
-    DrawTextureEx(t,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
+    DrawTextureEx(plr,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
     h.draw();
 }

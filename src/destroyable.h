@@ -7,13 +7,12 @@ class Destroyable : public Entity {
 
 public:
     Destroyable(int=0, int=0);
-    ~Destroyable();
+    virtual ~Destroyable();
 
-    void draw() const override;
     bool collide(const Hitbox &) const;
+    bool isActive() const;
 
-private:
-    
+protected:
+    bool active = false;
 };
-
 #endif
