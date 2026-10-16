@@ -11,10 +11,10 @@ public:
 
     void step() override;
     void draw() const override;
-    
+    bool collide(const Hitbox &) const;
 
 private:
-
+    int sprScale = 2;
 };
 
 #endif

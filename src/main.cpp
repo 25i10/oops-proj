@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "player.h"
+#include "destroyable.h"
 
 
 const int screenWidth = 800;
@@ -26,7 +27,7 @@ int main()
 
     
     Player p(100,700);
-    Entity e(100,100);
+    Destroyable e(100,100);
 
     while (!WindowShouldClose())
     {
@@ -38,6 +39,8 @@ int main()
         
         p.step();
         p.draw();
+
+        if (p.collide(e.getH())) std::cout << "abd";
 
 
         EndDrawing();

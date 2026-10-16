@@ -2,6 +2,7 @@
 #define ENTITY
 
 #include "vec2.h"
+#include "hitbox.h"
 
 class Entity {
 
@@ -11,11 +12,14 @@ public:
 
     virtual void step();
     virtual void draw() const;
+    Hitbox getH() const;
     
 
 protected:
     int spd;
     Vec2 pos;
     Vec2 dir;
+    Vec2 sprDims;
+    Hitbox h;
 };
 #endif
