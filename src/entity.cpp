@@ -30,5 +30,6 @@ void Entity::step(){
 Hitbox Entity::getH() const{return h;}
 
 void Entity::draw() const{
-    DrawCircle(pos[0], pos[1], 20, WHITE);
+    //DrawCircle(pos[0], pos[1], 20, WHITE);
+    //h.draw();
 }

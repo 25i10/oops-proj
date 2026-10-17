@@ -32,7 +32,7 @@ void Player::step(){
     h.moveCorner(pos - h.getDims()/2);
     
 
-    if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1],0));
+    if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
 }
 
 
@@ -47,5 +47,5 @@ bool Player::collide(const Hitbox & e) const{
 
 void Player::draw() const{
     DrawTextureEx(t_player,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
-    h.draw();
+    Entity::draw();
 }

@@ -31,6 +31,5 @@ void Asteroid::step(){
 
 void Asteroid::draw() const{    
     DrawTexturePro(t_asteroid,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
-
-    h.draw();
+    Entity::draw();
 }

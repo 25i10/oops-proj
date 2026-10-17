@@ -1,9 +1,9 @@
 #include "objLists.h"
-
 #include <raylib.h>
 
 std::vector<Bullet*> allBullets;
 std::vector<Asteroid*> allAsteroids;
+std::vector<Star*> allStars;
 
 void bulStep(){
     for(std::size_t i = 0; i < allBullets.size(); i++){
@@ -27,6 +27,39 @@ void bulDestroy(){
     }
     allBullets.clear();
 }
+
+
+void starGen(){
+    static bool s = true;
+    const int screenWidth = GetScreenWidth();
+    if( s )allStars.push_back(new Star(GetRandomValue(0,screenWidth),-10));
+    s = !s;
+}
+
+void starStep(){
+    for(std::size_t i = 0; i < allStars.size(); i++){
+        Star *e = allStars[i];
+
+        if(!e->isActive()) {
+            delete allStars[i];
+            allStars.erase(allStars.begin() + i);
+            continue;
+        }
+
+        e->step();
+        e->draw();
+
+    }
+}
+
+void starDestroy(){
+    for(Star* e : allStars){
+        delete e;
+    }
+    allStars.clear();
+}
+
+
 
 
 

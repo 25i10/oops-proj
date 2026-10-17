@@ -3,12 +3,11 @@
 #include <vector>
 
 #include "player.h"
-#include "asteroid.h"
 #include "objLists.h"
 
 
 const int screenWidth = 800;
-const int screenHeight = 800;
+const int screenHeight = 900;
 
 
 int main() 
@@ -25,25 +24,36 @@ int main()
 
     t_asteroid = LoadTexture("res/rock.png");
     t_player = LoadTexture("res/plr.png");
-    t_plrBullet = LoadTexture("res/plr_bul.png");
+
+    t_star[0] = LoadTexture("res/stars/1.png");
+    t_star[1] = LoadTexture("res/stars/2.png");
+    t_star[2] = LoadTexture("res/stars/3.png");
+    t_star[3] = LoadTexture("res/stars/4.png");
+    t_star[4] = LoadTexture("res/stars/5.png");
+    t_star[5] = LoadTexture("res/stars/6.png");
+    t_star[6] = LoadTexture("res/stars/7.png");
+
+    t_plrBullet[0] = LoadTexture("res/bullets/player/1.png");
+    t_plrBullet[1] = LoadTexture("res/bullets/player/2.png");
     t_Bullet1 = LoadTexture("res/bul1.png");
 
     SetTargetFPS(60);
 
     
     Player p(100,700);
-
-    
     
     allAsteroids.push_back(new Asteroid(100,100));
     allAsteroids.push_back(new Asteroid(200,100));
+
+
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        
+        starGen();
+        starStep();
 
         if(IsKeyPressed(KEY_L)) allAsteroids.push_back(new Asteroid(100,100));
 
@@ -60,11 +70,13 @@ int main()
 
     bulDestroy();
     astDestroy();
+    starDestroy();
 
     UnloadTexture(t_asteroid);
     UnloadTexture(t_player);
-    UnloadTexture(t_plrBullet);
+    for(Texture2D t : t_plrBullet) UnloadTexture(t);
     UnloadTexture(t_Bullet1);
+    for(Texture2D t : t_star) UnloadTexture(t);
 
     CloseWindow();
 
