@@ -13,7 +13,6 @@ public:
     void moveCorner(Vec2);
     Vec2 getCorner() const;
     Vec2 getDims() const;
-    Vec2 getOffset() const;
 
     bool intersect(const Hitbox &) const;
 

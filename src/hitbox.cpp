@@ -15,7 +15,7 @@ bool Hitbox::intersect(const Hitbox & h) const{
 
 
 void Hitbox::moveCorner(Vec2 p){
-    corner = p;
+    corner = p + offset;
 }
 
 void Hitbox::draw() const{
@@ -28,8 +28,4 @@ Vec2 Hitbox::getCorner() const{
 
 Vec2 Hitbox::getDims() const{
     return dims;
-}
-
-Vec2 Hitbox::getOffset() const{
-    return offset;
 }

@@ -19,10 +19,9 @@ Asteroid::~Asteroid(){
 }
 
 void Asteroid::step(){
-    pos += spd * dir;
+    pos += spd * dir;    
     
-    
-    h.moveCorner(pos - h.getDims()/2 + h.getOffset());
+    h.moveCorner(pos - h.getDims()/2);
 
     const int screenHeight = GetScreenHeight();
     if(pos[1] > screenHeight+128) active = false;
@@ -33,6 +32,5 @@ void Asteroid::step(){
 void Asteroid::draw() const{    
     DrawTexturePro(t_asteroid,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
 
-    //DrawTextureEx(aster,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
     h.draw();
 }

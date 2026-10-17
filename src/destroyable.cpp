@@ -11,6 +11,10 @@ bool Destroyable::collide(const Hitbox & e) const{
     return h.intersect(e);
 }
 
+void Destroyable::destroy(){
+    active = false;
+}
+
 bool Destroyable::isActive() const{
     return active;
 }

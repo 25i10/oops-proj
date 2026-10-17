@@ -4,7 +4,7 @@
 
 #include "player.h"
 #include "asteroid.h"
-#include "bulControl.h"
+#include "objLists.h"
 
 
 const int screenWidth = 800;
@@ -33,48 +33,33 @@ int main()
     
     Player p(100,700);
 
-    std::vector<Asteroid*> asts;
-    asts.push_back(new Asteroid(100,100));
-    asts.push_back(new Asteroid(200,100));
-
+    
+    
+    allAsteroids.push_back(new Asteroid(100,100));
+    allAsteroids.push_back(new Asteroid(200,100));
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        if(IsKeyPressed(KEY_L)) asts.push_back(new Asteroid(100,100));
+        
+
+        if(IsKeyPressed(KEY_L)) allAsteroids.push_back(new Asteroid(100,100));
 
 
-        bulMove();
-
-        for(std::size_t i = 0; i < asts.size(); i++){
-            Asteroid *e = asts[i];
-
-            e->step();
-            e->draw();
-
-            if(!e->isActive()) {
-                delete asts[i];
-                asts.erase(asts.begin() + i);
-            }
-
-            if(p.collide(e->getH())) std::cout << "abd";
-        }
+        bulStep();
+        astStep();
 
         p.step();
         p.draw();
 
         EndDrawing();
     }
-    
 
-    for(Asteroid* e : asts){
-        delete e;
-    }
-    asts.clear();
 
     bulDestroy();
+    astDestroy();
 
     UnloadTexture(t_asteroid);
     UnloadTexture(t_player);

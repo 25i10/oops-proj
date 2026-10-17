@@ -7,18 +7,23 @@
 extern Texture2D t_plrBullet;
 extern Texture2D t_Bullet1;
 
+
 class Bullet : public Entity {
 
 public:
-    Bullet(int=0, int=0, int=1, bool=false);
+    Bullet(int=0, int=0, int=0);
     virtual ~Bullet();
 
     void step() override;
     void draw() const override;
     bool isActive() const;
+    int getType() const;
+    void destroy();
     
 
 private:
     bool active = true;
+    int sprScale = 3;
+    int type;
 };
 #endif

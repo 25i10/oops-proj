@@ -1,5 +1,5 @@
 #include "player.h"
-#include "bulControl.h"
+#include "objLists.h"
 
 Texture2D t_player;
 
@@ -29,10 +29,10 @@ void Player::step(){
     if(pos[1]+32 > screenHeight) pos[1] = screenHeight-32;
     if(pos[1]-32 < 0) pos[1] = 32;
 
-    h.moveCorner(pos - h.getDims()/2 + h.getOffset());
+    h.moveCorner(pos - h.getDims()/2);
     
 
-    if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1],11,true));
+    if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1],0));
 }
 
 
