@@ -25,6 +25,11 @@ int main()
     t_asteroid = LoadTexture("res/rock.png");
     t_player = LoadTexture("res/plr.png");
 
+    t_astPiece[0] = LoadTexture("res/rock_pieces/1.png");
+    t_astPiece[1] = LoadTexture("res/rock_pieces/2.png");
+    t_astPiece[2] = LoadTexture("res/rock_pieces/3.png");
+    t_astPiece[3] = LoadTexture("res/rock_pieces/4.png");
+
     t_star[0] = LoadTexture("res/stars/1.png");
     t_star[1] = LoadTexture("res/stars/2.png");
     t_star[2] = LoadTexture("res/stars/3.png");
@@ -35,6 +40,7 @@ int main()
 
     t_plrBullet[0] = LoadTexture("res/bullets/player/1.png");
     t_plrBullet[1] = LoadTexture("res/bullets/player/2.png");
+    
     t_Bullet1 = LoadTexture("res/bul1.png");
 
     SetTargetFPS(60);
@@ -42,8 +48,8 @@ int main()
     
     Player p(100,700);
     
-    allAsteroids.push_back(new Asteroid(100,100));
-    allAsteroids.push_back(new Asteroid(200,100));
+    allDestroys.push_back(new Asteroid(100,100));
+    allDestroys.push_back(new Asteroid(200,100));
 
 
 
@@ -55,11 +61,10 @@ int main()
         starGen();
         starStep();
 
-        if(IsKeyPressed(KEY_L)) allAsteroids.push_back(new Asteroid(100,100));
-
+        if(IsKeyPressed(KEY_L)) allDestroys.push_back(new Asteroid(100,100));
 
         bulStep();
-        astStep();
+        destStep();
 
         p.step();
         p.draw();
@@ -69,14 +74,15 @@ int main()
 
 
     bulDestroy();
-    astDestroy();
+    destDestroy();
     starDestroy();
 
     UnloadTexture(t_asteroid);
     UnloadTexture(t_player);
-    for(Texture2D t : t_plrBullet) UnloadTexture(t);
     UnloadTexture(t_Bullet1);
+    for(Texture2D t : t_plrBullet) UnloadTexture(t);
     for(Texture2D t : t_star) UnloadTexture(t);
+    for(Texture2D t : t_astPiece) UnloadTexture(t);
 
     CloseWindow();
 

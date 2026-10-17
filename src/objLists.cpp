@@ -2,7 +2,7 @@
 #include <raylib.h>
 
 std::vector<Bullet*> allBullets;
-std::vector<Asteroid*> allAsteroids;
+std::vector<Destroyable*> allDestroys;
 std::vector<Star*> allStars;
 
 void bulStep(){
@@ -63,14 +63,14 @@ void starDestroy(){
 
 
 
-void astStep(){
-    for(std::size_t i = 0; i < allAsteroids.size(); i++){
-        Asteroid *e = allAsteroids[i];
+void destStep(){
+    for(std::size_t i = 0; i < allDestroys.size(); i++){
+        Destroyable *e = allDestroys[i];
 
 
         if(!e->isActive()) {
-            delete allAsteroids[i];
-            allAsteroids.erase(allAsteroids.begin() + i);
+            delete allDestroys[i];
+            allDestroys.erase(allDestroys.begin() + i);
             continue;
         }
 
@@ -94,9 +94,9 @@ void astStep(){
     }
 }
 
-void astDestroy(){
-    for(Asteroid* e : allAsteroids){
+void destDestroy(){
+    for(Destroyable* e : allDestroys){
         delete e;
     }
-    allAsteroids.clear();
+    allDestroys.clear();
 }

@@ -1,4 +1,6 @@
 #include "asteroid.h"
+#include "ast_piece.h"
+#include "objLists.h"
 
 Texture2D t_asteroid;
 
@@ -14,9 +16,7 @@ Asteroid::Asteroid(int x, int y):Destroyable(x,y){
     h = Hitbox(pos[0]-hDim[0]/2, pos[1]-hDim[1]/2, hDim[0], hDim[1]);
 }
 
-Asteroid::~Asteroid(){
-    //std::cout << "Destructor called";
-}
+Asteroid::~Asteroid(){}
 
 void Asteroid::step(){
     pos += spd * dir;    
@@ -24,9 +24,20 @@ void Asteroid::step(){
     h.moveCorner(pos - h.getDims()/2);
 
     const int screenHeight = GetScreenHeight();
-    if(pos[1] > screenHeight+128) active = false;
+    if(pos[1] > screenHeight){
+        dir *= -1;    
+        destroy();
+    }
 }
 
+void Asteroid::destroy(){
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],0,dir.rotated( GetRandomValue(25,30)/100.0 )));
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],1,dir.rotated(-GetRandomValue(25,30)/100.0)));
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],2,dir.rotated(-GetRandomValue(45,70)/100.0)));
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],3,dir.rotated(GetRandomValue(45,70)/100.0)));
+
+    Destroyable::destroy();
+}
 
 
 void Asteroid::draw() const{    

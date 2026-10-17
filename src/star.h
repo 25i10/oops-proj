@@ -18,7 +18,7 @@ public:
     
 
 private:
-    int spdRot;
+    //int spdRot;
     int frame;
     Vec2 pos;
     Vec2 dir;

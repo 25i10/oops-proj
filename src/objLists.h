@@ -3,6 +3,7 @@
 
 #include "bullet.h"
 #include "asteroid.h"
+#include "ast_piece.h"
 #include "star.h"
 #include <vector>
 
@@ -13,9 +14,9 @@ void starDestroy();
 extern std::vector<Bullet*> allBullets;
 void bulStep();
 void bulDestroy();
-extern std::vector<Asteroid*> allAsteroids;
-void astStep();
-void astDestroy();
+extern std::vector<Destroyable*> allDestroys;
+void destStep();
+void destDestroy();
 
 
 
