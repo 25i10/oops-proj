@@ -2,7 +2,9 @@
 #define ASTEROID
 
 #include "destroyable.h"
+#include <raylib.h>
 
+extern Texture2D t_asteroid;
 class Asteroid : public Destroyable {
 
 public:
@@ -15,7 +17,6 @@ public:
     
 
 private:
-    int sprScale = 2;
     int spdRot;
 };
 

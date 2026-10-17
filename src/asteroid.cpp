@@ -1,13 +1,9 @@
 #include "asteroid.h"
-#include <raylib.h>
-#include <iostream>
 
-Texture2D aster;
-
+Texture2D t_asteroid;
 
 Asteroid::Asteroid(int x, int y):Destroyable(x,y){
-    aster = LoadTexture("res/rock.png");
-    sprDims = sprScale * Vec2(aster.width,aster.height);
+    sprDims = sprScale * Vec2(t_asteroid.width,t_asteroid.height);
     spdRot = GetRandomValue(1,6);
 
     active = true;
@@ -35,7 +31,7 @@ void Asteroid::step(){
 
 
 void Asteroid::draw() const{    
-    DrawTexturePro(aster,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
+    DrawTexturePro(t_asteroid,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
 
     //DrawTextureEx(aster,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
     h.draw();

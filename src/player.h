@@ -2,7 +2,9 @@
 #define PLAYER
 
 #include "entity.h"
+#include <raylib.h>
 
+extern Texture2D t_player;
 class Player : public Entity {
 
 public:
@@ -12,9 +14,10 @@ public:
     void step() override;
     void draw() const override;
     bool collide(const Hitbox &) const;
+    Vec2 getPos() const;
 
 private:
-    int sprScale = 2;
+    bool shot;
 };
 
 #endif

@@ -20,6 +20,7 @@ protected:
     Vec2 pos;
     Vec2 dir;
     Vec2 sprDims;
+    int sprScale = 2;
     Hitbox h;
 };
 #endif
