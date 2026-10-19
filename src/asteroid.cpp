@@ -33,8 +33,8 @@ void Asteroid::step(){
 void Asteroid::destroy(){
     allDestroys.push_back(new AstPiece(pos[0],pos[1],0,dir.rotated( GetRandomValue(25,30)/100.0 )));
     allDestroys.push_back(new AstPiece(pos[0],pos[1],1,dir.rotated(-GetRandomValue(25,30)/100.0)));
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],2,dir.rotated(-GetRandomValue(45,70)/100.0)));
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],3,dir.rotated(GetRandomValue(45,70)/100.0)));
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],2,dir.rotated(-GetRandomValue(70,100)/100.0)));
+    allDestroys.push_back(new AstPiece(pos[0],pos[1],3,dir.rotated(GetRandomValue(70,100)/100.0)));
 
     Destroyable::destroy();
 }

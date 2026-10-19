@@ -5,6 +5,36 @@ std::vector<Bullet*> allBullets;
 std::vector<Destroyable*> allDestroys;
 std::vector<Star*> allStars;
 
+void playerColl(Player & p){
+    for(std::size_t i = 0; i<allBullets.size(); i++){
+        Bullet *f = allBullets[i];
+
+        if(f->getType() == 0) continue;
+        
+        if(p.collide(f->getH())) {
+            f->destroy();
+            delete allBullets[i];
+            allBullets.erase(allBullets.begin() + i);
+
+            p.destroy();
+        }
+    }
+    for(std::size_t i = 0; i<allDestroys.size(); i++){
+        Destroyable *f = allDestroys[i];
+        
+        if(p.collide(f->getH())) {
+            f->destroy();
+            delete allDestroys[i];
+            allDestroys.erase(allDestroys.begin() + i);
+
+            p.destroy();
+        }
+    }
+
+}
+
+
+
 void bulStep(){
     for(std::size_t i = 0; i < allBullets.size(); i++){
         Bullet *e = allBullets[i];
@@ -21,12 +51,20 @@ void bulStep(){
     }
 }
 
+void bulDraw(){
+    for(Bullet* i : allBullets){
+        i->draw();
+    }
+}
+
 void bulDestroy(){
     for(Bullet* e : allBullets){
         delete e;
     }
     allBullets.clear();
 }
+
+
 
 
 void starGen(){
@@ -49,6 +87,12 @@ void starStep(){
         e->step();
         e->draw();
 
+    }
+}
+
+void starDraw(){
+    for(Star* i : allStars){
+        i->draw();
     }
 }
 
@@ -91,6 +135,12 @@ void destStep(){
                 e->destroy();
             }
         }
+    }
+}
+
+void destDraw(){
+    for(Destroyable* i : allDestroys){
+        i->draw();
     }
 }
 

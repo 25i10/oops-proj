@@ -14,10 +14,15 @@ public:
     void step() override;
     void draw() const override;
     bool collide(const Hitbox &) const;
+    void destroy();
+    void reset();
+    bool isActive() const;
     Vec2 getPos() const;
 
 private:
     bool shot;
+    Vec2 initPos;
+    bool active = true;
 };
 
 #endif

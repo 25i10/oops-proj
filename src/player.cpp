@@ -3,7 +3,7 @@
 
 Texture2D t_player;
 
-Player::Player(int x, int y):Entity(x,y,8){
+Player::Player(int x, int y):Entity(x,y,8),initPos(x,y){
     sprDims = sprScale * Vec2(t_player.width,t_player.height);
     shot = false;
 
@@ -15,6 +15,11 @@ Player::Player(int x, int y):Entity(x,y,8){
 }
 
 Player::~Player(){}
+
+void Player::reset(){
+    pos = initPos;
+    active = true;
+}
 
 void Player::step(){
     dir = Vec2(IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT),IsKeyDown(KEY_DOWN) - IsKeyDown(KEY_UP)).norm();
@@ -35,6 +40,13 @@ void Player::step(){
     if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
 }
 
+void Player::destroy(){
+    active = false;
+}
+
+bool Player::isActive() const{
+    return active;
+}
 
 Vec2 Player::getPos() const {
     return pos;

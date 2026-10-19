@@ -9,6 +9,19 @@
 const int screenWidth = 800;
 const int screenHeight = 900;
 
+enum class gameState{
+    START,
+    GAME,
+    LOSE
+};
+
+void dispTextFromOrigin(const char* text, int x, int y, int fSize, Color b){
+    int tWidth = MeasureText(text,fSize);
+    int _x = x - tWidth/2;
+    int _y = y - fSize/2;
+    DrawText(text,_x,_y,fSize,b);
+}
+
 
 int main() 
 {
@@ -21,6 +34,8 @@ int main()
     
 
     InitWindow(screenWidth, screenHeight, "a!");
+
+    gameState gs = gameState::START;
 
     t_asteroid = LoadTexture("res/rock.png");
     t_player = LoadTexture("res/plr.png");
@@ -46,11 +61,10 @@ int main()
     SetTargetFPS(60);
 
     
-    Player p(100,700);
     
-    allDestroys.push_back(new Asteroid(100,100));
-    allDestroys.push_back(new Asteroid(200,100));
+    Player p(100,700);
 
+    
 
 
     while (!WindowShouldClose())
@@ -58,16 +72,64 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
-        starGen();
-        starStep();
+        switch(gs){
+            case  gameState::START:
+            starGen();
+            starStep();
 
-        if(IsKeyPressed(KEY_L)) allDestroys.push_back(new Asteroid(100,100));
+            if(IsKeyPressed(KEY_SPACE)){
+                gs = gameState::GAME;
+    
+                allDestroys.push_back(new Asteroid(100,100));
+                allDestroys.push_back(new Asteroid(200,100));
+            }
+            dispTextFromOrigin("Press SPACE to play",screenWidth/2,screenHeight/2,40,WHITE);
 
-        bulStep();
-        destStep();
+            break;
 
-        p.step();
-        p.draw();
+
+
+            case gameState::GAME:
+            starGen();
+            starStep();
+
+            if(IsKeyPressed(KEY_L)) allDestroys.push_back(new Asteroid(100,100));
+
+            bulStep();
+            destStep();
+
+            p.step();
+            p.draw();
+            playerColl(p);
+            if(!p.isActive()) gs = gameState::LOSE;
+
+            DrawText(TextFormat("FPS : %i",GetFPS()),0,0,20,WHITE);
+
+            break;
+
+
+
+            case gameState::LOSE:
+            starDraw();
+            bulDraw();
+            destDraw();
+            p.draw();
+
+            dispTextFromOrigin("YOU LOST",screenWidth/2,screenHeight/2,40,WHITE);
+            dispTextFromOrigin("Press SPACE to try again",screenWidth/2,screenHeight/2+45,20,WHITE);
+            if(IsKeyPressed(KEY_SPACE)){
+                gs = gameState::GAME;
+                bulDestroy();
+                destDestroy();
+                p.reset();
+            }
+
+            
+
+            break;
+        }
+
+        
 
         EndDrawing();
     }
