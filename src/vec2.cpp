@@ -1,5 +1,5 @@
 #include "vec2.h"
-#include <raylib.h>
+#include "raylib.h"
 #include <iostream>
 #include <cmath>
 
@@ -67,7 +67,7 @@ const float Vec2::operator[] (int i) const{
 }
 
 
-// -- smth
+// ------------------ Functions ------------------
 Vec2 Vec2::rotated(float th) const{
     float s = std::sin(-th), c = std::cos(-th);     //-theta because screen works as IVth quadrant as base
     return Vec2(x*c - y*s, x*s + y*c);

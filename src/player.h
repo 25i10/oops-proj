@@ -2,7 +2,7 @@
 #define PLAYER
 
 #include "entity.h"
-#include <raylib.h>
+#include "raylib.h"
 
 extern Texture2D t_player;
 class Player : public Entity {

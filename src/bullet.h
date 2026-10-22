@@ -2,7 +2,7 @@
 #define BULLET
 
 #include "entity.h"
-#include <raylib.h>
+#include "raylib.h"
 
 extern Texture2D t_plrBullet [2];
 extern Texture2D t_Bullet1;

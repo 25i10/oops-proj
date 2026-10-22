@@ -1,7 +1,7 @@
 #ifndef STAR
 #define STAR
 
-#include <raylib.h>
+#include "raylib.h"
 #include "vec2.h"
 
 extern Texture2D t_star [7];

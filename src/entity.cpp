@@ -1,5 +1,5 @@
 #include "entity.h"
-#include <raylib.h>
+#include "raylib.h"
 
 Entity::Entity(int x, int y, int s):pos(x,y){
     dir = Vec2(1,0);

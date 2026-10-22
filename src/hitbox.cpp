@@ -1,5 +1,5 @@
 #include "hitbox.h"
-#include <raylib.h>
+#include "raylib.h"
 
 Hitbox::Hitbox(int x, int y, int w, int h, int ox, int oy):corner(x,y),dims(w,h),offset(ox,oy){}
 
