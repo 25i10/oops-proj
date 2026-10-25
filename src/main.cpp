@@ -25,15 +25,7 @@ void dispTextFromOrigin(const char* text, int x, int y, int fSize, Color b){
 
 int main() 
 {
-    Vec2 v(1,2), v2(4,3), v3(1,0);
-    std::cout << v << v2 << std::endl;
-    std::cout << 0.5*v2 << std::endl;
-    std::cout << v + v2 << v-v2 <<std::endl;
-    std::cout << v3 << v3.rotated(PI/4) << v3.rotated(PI/4).angle() << std::endl;
-    std::cout << v2[0] << " " << v2[1] << std::endl;
-    
-
-    InitWindow(screenWidth, screenHeight, "a!");
+    InitWindow(screenWidth, screenHeight, "Asteroids");
 
     gameState gs = gameState::START;
 
@@ -62,9 +54,8 @@ int main()
 
     
     
-    Player p(100,700);
+    Player p(300,700);
 
-    
 
 
     while (!WindowShouldClose())
@@ -79,9 +70,10 @@ int main()
 
             if(IsKeyPressed(KEY_SPACE)){
                 gs = gameState::GAME;
-    
-                allDestroys.push_back(new Asteroid(100,100));
-                allDestroys.push_back(new Asteroid(200,100));
+                
+                for(int i = 0; i<10; i++){
+                    allDestroys.push_back(new Asteroid(100+64*i,-32));
+                }
             }
             dispTextFromOrigin("Press SPACE to play",screenWidth/2,screenHeight/2,40,WHITE);
 
@@ -93,7 +85,12 @@ int main()
             starGen();
             starStep();
 
-            if(IsKeyPressed(KEY_L)) allDestroys.push_back(new Asteroid(100,100));
+
+            if(allDestroys.size() <= 3){
+                for(int i = 0; i<10; i++){
+                    allDestroys.push_back(new Asteroid(100+64*i,-32));
+                }
+            }
 
             bulStep();
             destStep();
@@ -121,6 +118,11 @@ int main()
                 gs = gameState::GAME;
                 bulDestroy();
                 destDestroy();
+
+                for(int i = 0; i<10; i++){
+                    allDestroys.push_back(new Asteroid(100+64*i,-32));
+                }
+
                 p.reset();
             }
 
