@@ -6,6 +6,8 @@
 #include "asteroid.h"
 #include "ast_piece.h"
 #include "star.h"
+#include "follower.h"
+#include "basicshot.h"
 #include <vector>
 
 void playerColl(Player &);
@@ -20,7 +22,7 @@ void bulStep();
 void bulDraw();
 void bulDestroy();
 extern std::vector<Destroyable*> allDestroys;
-void destStep();
+void destStep(Player &);
 void destDraw();
 void destDestroy();
 

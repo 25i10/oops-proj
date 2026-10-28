@@ -74,7 +74,7 @@ Vec2 Vec2::rotated(float th) const{
 }
 
 float Vec2::angle() const{
-    return std::atan2(-y,x);
+    return std::atan2(y,x);
 }
 
 float Vec2::magn() const{

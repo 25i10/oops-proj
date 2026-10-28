@@ -107,9 +107,13 @@ void starDestroy(){
 
 
 
-void destStep(){
+void destStep(Player & p){
     for(std::size_t i = 0; i < allDestroys.size(); i++){
         Destroyable *e = allDestroys[i];
+
+        if(Follower* s = dynamic_cast<Follower *>(e)){
+            s->turnToPoint(p.getPos());
+        }
 
 
         if(!e->isActive()) {

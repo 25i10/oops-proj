@@ -37,7 +37,18 @@ void Player::step(){
     h.moveCorner(pos - h.getDims()/2);
     
 
-    if(IsKeyPressed(KEY_SPACE)) allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
+    if(IsKeyDown(KEY_SPACE)){
+        shotTim++;
+        if(shotTim >= 12){
+            shotTim = 0;
+            allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
+        }
+    }
+
+    if(IsKeyPressed(KEY_SPACE)) {
+        shotTim = 0;
+        allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
+    }
 }
 
 void Player::destroy(){

@@ -9,7 +9,7 @@ Asteroid::Asteroid(int x, int y):Destroyable(x,y){
     spdRot = GetRandomValue(1,6);
 
     active = true;
-    spd = GetRandomValue(2,4);
+    spd = GetRandomValue(20,40);
 
     //Hardcoded hitbox
     Vec2 hDim(50,50);
@@ -19,7 +19,7 @@ Asteroid::Asteroid(int x, int y):Destroyable(x,y){
 Asteroid::~Asteroid(){}
 
 void Asteroid::step(){
-    pos += spd * dir;    
+    pos += (spd/10.0) * dir;    
     
     h.moveCorner(pos - h.getDims()/2);
 

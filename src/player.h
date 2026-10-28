@@ -21,6 +21,7 @@ public:
 
 private:
     bool shot;
+    int shotTim = 0;
     Vec2 initPos;
     bool active = true;
 };

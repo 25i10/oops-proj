@@ -8,7 +8,7 @@ Star::Star(int x, int y):pos(x,y),dir(0,1){
     sprDims = sprScale * Vec2(t_star[frame].width,t_star[frame].height);
 
     active = true;
-    spd = GetRandomValue(4,11);
+    spd = GetRandomValue(12,15);
 }
 
 Star::~Star(){}

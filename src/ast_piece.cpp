@@ -8,7 +8,7 @@ AstPiece::AstPiece(int x, int y, int f, Vec2 _d):Destroyable(x,y){
     sprDims = sprScale * Vec2(t_astPiece[frame].width,t_astPiece[frame].height);
 
     active = true;
-    spd = GetRandomValue(4,6)/2;
+    spd = GetRandomValue(2,4);
 
     //Hardcoded hitbox
     Vec2 hDim(28,30);

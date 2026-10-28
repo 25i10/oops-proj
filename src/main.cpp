@@ -32,6 +32,9 @@ int main()
     t_asteroid = LoadTexture("res/rock.png");
     t_player = LoadTexture("res/plr.png");
 
+    t_shooter1 = LoadTexture("res/shooters/1.png");
+    t_shooter2 = LoadTexture("res/shooters/2.png");
+
     t_astPiece[0] = LoadTexture("res/rock_pieces/1.png");
     t_astPiece[1] = LoadTexture("res/rock_pieces/2.png");
     t_astPiece[2] = LoadTexture("res/rock_pieces/3.png");
@@ -71,8 +74,10 @@ int main()
             if(IsKeyPressed(KEY_SPACE)){
                 gs = gameState::GAME;
                 
-                for(int i = 0; i<10; i++){
-                    allDestroys.push_back(new Asteroid(100+64*i,-32));
+                for(int i = 0; i<5; i++){
+                    //allDestroys.push_back(new Asteroid(100+64*i,-32));
+                    allDestroys.push_back(new Follower(100+64*2*i));
+                    allDestroys.push_back(new BasicShot(164+64*2*i));
                 }
             }
             dispTextFromOrigin("Press SPACE to play",screenWidth/2,screenHeight/2,40,WHITE);
@@ -93,7 +98,7 @@ int main()
             }
 
             bulStep();
-            destStep();
+            destStep(p);
 
             p.step();
             p.draw();
@@ -119,8 +124,10 @@ int main()
                 bulDestroy();
                 destDestroy();
 
-                for(int i = 0; i<10; i++){
-                    allDestroys.push_back(new Asteroid(100+64*i,-32));
+                for(int i = 0; i<5; i++){
+                    //allDestroys.push_back(new Asteroid(100+64*i,-32));
+                    allDestroys.push_back(new Follower(100+64*2*i));
+                    allDestroys.push_back(new BasicShot(164+64*2*i));
                 }
 
                 p.reset();
@@ -144,6 +151,8 @@ int main()
     UnloadTexture(t_asteroid);
     UnloadTexture(t_player);
     UnloadTexture(t_Bullet1);
+    UnloadTexture(t_shooter1);
+    UnloadTexture(t_shooter2);
     for(Texture2D t : t_plrBullet) UnloadTexture(t);
     for(Texture2D t : t_star) UnloadTexture(t);
     for(Texture2D t : t_astPiece) UnloadTexture(t);
