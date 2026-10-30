@@ -19,7 +19,7 @@ BasicShot::~BasicShot(){}
 
 void BasicShot::shoot(){
     Vec2 bulPos = 20*(dir+Vec2(0.3,0)) + pos;
-    allBullets.push_back(new Bullet(bulPos[0],bulPos[1],1,dir));
+    spawnBullet(bulPos,dir,1);
     
     Shooters::shoot();
 }

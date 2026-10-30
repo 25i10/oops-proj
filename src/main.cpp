@@ -51,7 +51,8 @@ int main()
     t_plrBullet[0] = LoadTexture("res/bullets/player/1.png");
     t_plrBullet[1] = LoadTexture("res/bullets/player/2.png");
     
-    t_Bullet1 = LoadTexture("res/bul1.png");
+    t_strBullet[0] = t_plrBullet[0];
+    t_strBullet[1] = t_plrBullet[1];
 
     SetTargetFPS(60);
 
@@ -105,7 +106,8 @@ int main()
             playerColl(p);
             if(!p.isActive()) gs = gameState::LOSE;
 
-            DrawText(TextFormat("FPS : %i",GetFPS()),0,0,20,WHITE);
+            //DrawText(TextFormat("FPS : %i",GetFPS()),0,0,20,WHITE);
+            DrawText(TextFormat("AST COUNT : %i, %i",astCount(),shootCount()),0,0,20,WHITE);
 
             break;
 
@@ -150,10 +152,10 @@ int main()
 
     UnloadTexture(t_asteroid);
     UnloadTexture(t_player);
-    UnloadTexture(t_Bullet1);
     UnloadTexture(t_shooter1);
     UnloadTexture(t_shooter2);
     for(Texture2D t : t_plrBullet) UnloadTexture(t);
+    for(Texture2D t : t_strBullet) UnloadTexture(t);
     for(Texture2D t : t_star) UnloadTexture(t);
     for(Texture2D t : t_astPiece) UnloadTexture(t);
 

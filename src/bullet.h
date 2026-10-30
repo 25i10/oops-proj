@@ -4,10 +4,6 @@
 #include "entity.h"
 #include "raylib.h"
 
-extern Texture2D t_plrBullet [2];
-extern Texture2D t_Bullet1;
-
-
 class Bullet : public Entity {
 
 public:
@@ -15,16 +11,12 @@ public:
     virtual ~Bullet();
 
     void step() override;
-    void draw() const override;
+    //void draw() const override;
     bool isActive() const;
-    int getType() const;
     void destroy();
     
 
-private:
+protected:
     bool active = true;
-    int sprScale = 3;
-    int type;
-    int var;
 };
 #endif

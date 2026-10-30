@@ -9,7 +9,10 @@ void playerColl(Player & p){
     for(std::size_t i = 0; i<allBullets.size(); i++){
         Bullet *f = allBullets[i];
 
-        if(f->getType() == 0) continue;
+        if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)){
+            s = nullptr;
+            continue;
+        } else s = nullptr;
         
         if(p.collide(f->getH())) {
             f->destroy();
@@ -64,6 +67,20 @@ void bulDestroy(){
     allBullets.clear();
 }
 
+void spawnBullet(Vec2 pos, Vec2 dir, int type){
+    switch(type){
+        case 0:
+        allBullets.push_back(new PlrBullet(pos[0],pos[1]-28,dir));
+        break;
+
+        case 1:
+        allBullets.push_back(new StraightBullet(pos[0],pos[1],dir));
+        break;
+
+        default:
+        break;
+    }
+}
 
 
 
@@ -129,7 +146,11 @@ void destStep(Player & p){
         for(std::size_t j = 0; j<allBullets.size(); j++){
             Bullet *f = allBullets[j];
 
-            if(f->getType() != 0) continue;
+            if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)) s = nullptr;
+            else {
+                s = nullptr;
+                continue;
+            }
 
             if(e->collide(f->getH())) {
                 f->destroy();
@@ -140,6 +161,34 @@ void destStep(Player & p){
             }
         }
     }
+}
+
+int astCount(){
+    int a = 0;
+    for(Destroyable *d : allDestroys){
+        if(Asteroid* s = dynamic_cast<Asteroid *>(d)){
+            a++;
+            s = nullptr;
+        } else s = nullptr;
+
+        if(AstPiece* s = dynamic_cast<AstPiece *>(d)){
+            a++;
+            s = nullptr;
+        } else s = nullptr;
+    }
+
+    return a;
+}
+
+int shootCount(){
+    int a = 0;
+    for(Destroyable *d : allDestroys){
+        if(Shooters* s = dynamic_cast<Shooters *>(d)){
+            a++;
+            s = nullptr;
+        } else s = nullptr;
+    }
+    return a;
 }
 
 void destDraw(){

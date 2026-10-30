@@ -2,7 +2,8 @@
 #define OBJ_LISTS
 
 #include "player.h"
-#include "bullet.h"
+#include "straight_bullet.h"
+#include "plr_bullet.h"
 #include "asteroid.h"
 #include "ast_piece.h"
 #include "star.h"
@@ -20,11 +21,14 @@ void starDestroy();
 extern std::vector<Bullet*> allBullets;
 void bulStep();
 void bulDraw();
+void spawnBullet(Vec2 = Vec2(0,0), Vec2 = Vec2(0,0), int=0);
 void bulDestroy();
 extern std::vector<Destroyable*> allDestroys;
 void destStep(Player &);
 void destDraw();
 void destDestroy();
+int astCount();
+int shootCount();
 
 
 

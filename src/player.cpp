@@ -41,13 +41,13 @@ void Player::step(){
         shotTim++;
         if(shotTim >= 12){
             shotTim = 0;
-            allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
+            spawnBullet(pos,Vec2(0,-1),0);
         }
     }
 
     if(IsKeyPressed(KEY_SPACE)) {
         shotTim = 0;
-        allBullets.push_back(new Bullet(pos[0],pos[1]-28,0));
+        spawnBullet(pos,Vec2(0,-1),0);
     }
 }
 
