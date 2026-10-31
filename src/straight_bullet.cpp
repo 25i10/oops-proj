@@ -14,10 +14,6 @@ StraightBullet::StraightBullet(int x, int y, Vec2 _dir):Bullet(x,y,8,_dir){
 StraightBullet::~StraightBullet(){}
 
 
-void StraightBullet::destroy(){
-    active = false;
-}
-
 
 void StraightBullet::draw() const{
     DrawTexturePro(t_strBullet[var],(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},dir.angle()*180/PI,Color{200,0,0,255});

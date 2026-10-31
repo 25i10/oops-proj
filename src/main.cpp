@@ -34,6 +34,7 @@ int main()
 
     t_shooter1 = LoadTexture("res/shooters/1.png");
     t_shooter2 = LoadTexture("res/shooters/2.png");
+    t_shooter3 = LoadTexture("res/shooters/3.png");
 
     t_astPiece[0] = LoadTexture("res/rock_pieces/1.png");
     t_astPiece[1] = LoadTexture("res/rock_pieces/2.png");
@@ -51,9 +52,12 @@ int main()
     t_plrBullet[0] = LoadTexture("res/bullets/player/1.png");
     t_plrBullet[1] = LoadTexture("res/bullets/player/2.png");
     
+    
     t_strBullet[0] = t_plrBullet[0];
     t_strBullet[1] = t_plrBullet[1];
-
+    t_spBullet = LoadTexture("res/bullets/enemy/spreader.png");
+    t_spiralBullet = t_plrBullet[0];
+    
     SetTargetFPS(60);
 
     
@@ -76,9 +80,7 @@ int main()
                 gs = gameState::GAME;
                 
                 for(int i = 0; i<5; i++){
-                    //allDestroys.push_back(new Asteroid(100+64*i,-32));
-                    allDestroys.push_back(new Follower(100+64*2*i));
-                    allDestroys.push_back(new BasicShot(164+64*2*i));
+                    allDestroys.push_back(new BigShot(100+64*2*i));
                 }
             }
             dispTextFromOrigin("Press SPACE to play",screenWidth/2,screenHeight/2,40,WHITE);
@@ -91,12 +93,13 @@ int main()
             starGen();
             starStep();
 
-
+            
+            /*
             if(allDestroys.size() <= 3){
                 for(int i = 0; i<10; i++){
                     allDestroys.push_back(new Asteroid(100+64*i,-32));
                 }
-            }
+            }*/
 
             bulStep();
             destStep(p);
@@ -127,9 +130,7 @@ int main()
                 destDestroy();
 
                 for(int i = 0; i<5; i++){
-                    //allDestroys.push_back(new Asteroid(100+64*i,-32));
-                    allDestroys.push_back(new Follower(100+64*2*i));
-                    allDestroys.push_back(new BasicShot(164+64*2*i));
+                    allDestroys.push_back(new BigShot(100+64*2*i));
                 }
 
                 p.reset();
@@ -154,6 +155,10 @@ int main()
     UnloadTexture(t_player);
     UnloadTexture(t_shooter1);
     UnloadTexture(t_shooter2);
+    UnloadTexture(t_shooter3);
+    
+    UnloadTexture(t_spBullet);
+    UnloadTexture(t_spiralBullet);
     for(Texture2D t : t_plrBullet) UnloadTexture(t);
     for(Texture2D t : t_strBullet) UnloadTexture(t);
     for(Texture2D t : t_star) UnloadTexture(t);

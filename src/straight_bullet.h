@@ -15,7 +15,6 @@ public:
 
     //void step() override;
     void draw() const override;
-    void destroy();
     
 
 private:

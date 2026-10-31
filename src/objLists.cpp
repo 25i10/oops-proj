@@ -1,5 +1,6 @@
 #include "objLists.h"
 #include "raylib.h"
+#include <iostream>
 
 std::vector<Bullet*> allBullets;
 std::vector<Destroyable*> allDestroys;
@@ -16,8 +17,6 @@ void playerColl(Player & p){
         
         if(p.collide(f->getH())) {
             f->destroy();
-            delete allBullets[i];
-            allBullets.erase(allBullets.begin() + i);
 
             p.destroy();
         }
@@ -27,8 +26,6 @@ void playerColl(Player & p){
         
         if(p.collide(f->getH())) {
             f->destroy();
-            delete allDestroys[i];
-            allDestroys.erase(allDestroys.begin() + i);
 
             p.destroy();
         }
@@ -42,15 +39,41 @@ void bulStep(){
     for(std::size_t i = 0; i < allBullets.size(); i++){
         Bullet *e = allBullets[i];
 
+        if(Spiralspread_bullet* k = dynamic_cast<Spiralspread_bullet *>(e)){
+            for(std::size_t j = 0; j<allBullets.size(); j++){
+                Bullet *f = allBullets[j];
+
+                if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)) s = nullptr;
+                else {
+                    s = nullptr;
+                    continue;
+                }
+
+                if(e->getH().intersect(f->getH())) {
+                    f->destroy();
+                    e->destroy();
+                    break;
+                }
+                f = nullptr;
+            }
+            k = nullptr;
+        }
+
         if(!e->isActive()) {
             delete allBullets[i];
             allBullets.erase(allBullets.begin() + i);
-            continue;
+            if(i >= allBullets.size()) i = allBullets.size()-1;
+            if (allBullets.size() == 0) {
+                e = nullptr;
+                break;
+            }
+            e = allBullets[i];
         }
 
         e->step();
         e->draw();
 
+        e=nullptr;
     }
 }
 
@@ -75,6 +98,14 @@ void spawnBullet(Vec2 pos, Vec2 dir, int type){
 
         case 1:
         allBullets.push_back(new StraightBullet(pos[0],pos[1],dir));
+        break;
+
+        case 2:
+        allBullets.push_back(new Spiralspread_bullet(pos[0],pos[1],dir));
+        break;
+
+        case 3:
+        allBullets.push_back(new SpiralBullet(pos[0],pos[1],dir));
         break;
 
         default:
@@ -104,6 +135,7 @@ void starStep(){
         e->step();
         e->draw();
 
+        e=nullptr;
     }
 }
 
@@ -136,9 +168,13 @@ void destStep(Player & p){
         if(!e->isActive()) {
             delete allDestroys[i];
             allDestroys.erase(allDestroys.begin() + i);
-            continue;
+            if(i >= allDestroys.size()) i = allDestroys.size()-1;
+            if (allDestroys.size() == 0) {
+                e = nullptr;
+                break;
+            }
+            e = allDestroys[i];
         }
-
 
         e->step();
         e->draw();
@@ -154,12 +190,23 @@ void destStep(Player & p){
 
             if(e->collide(f->getH())) {
                 f->destroy();
+                /*
                 delete allBullets[j];
                 allBullets.erase(allBullets.begin() + j);
+                if(i >= allBullets.size()) i = allBullets.size()-1;
+                if (allBullets.size() == 0) {
+                    f = nullptr;
+                    break;
+                }
+                */
 
                 e->destroy();
+                break;
             }
+            f = nullptr;
         }
+
+        e=nullptr;
     }
 }
 
@@ -175,6 +222,8 @@ int astCount(){
             a++;
             s = nullptr;
         } else s = nullptr;
+
+        d=nullptr;
     }
 
     return a;

@@ -14,9 +14,6 @@ PlrBullet::PlrBullet(int x, int y, Vec2 _dir):Bullet(x,y,10,_dir){
 PlrBullet::~PlrBullet(){}
 
 
-void PlrBullet::destroy(){
-    active = false;
-}
 
 
 void PlrBullet::draw() const{

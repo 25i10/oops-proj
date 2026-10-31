@@ -2,13 +2,21 @@
 #define OBJ_LISTS
 
 #include "player.h"
+
 #include "straight_bullet.h"
 #include "plr_bullet.h"
+#include "spiralspread_bullet.h"
+#include "spiral_bullet.h"
+
 #include "asteroid.h"
 #include "ast_piece.h"
+
 #include "star.h"
+
 #include "follower.h"
 #include "basicshot.h"
+#include "bigshot.h"
+
 #include <vector>
 
 void playerColl(Player &);
