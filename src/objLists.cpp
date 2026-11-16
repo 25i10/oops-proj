@@ -6,6 +6,13 @@ std::vector<Bullet*> allBullets;
 std::vector<Destroyable*> allDestroys;
 std::vector<Star*> allStars;
 
+SmokeGen sm;
+int score;
+
+void createSmoke(int x, int y, int c){
+    sm.smokeBurst(x,y,c);
+}
+
 void playerColl(Player & p){
     for(std::size_t i = 0; i<allBullets.size(); i++){
         Bullet *f = allBullets[i];
@@ -18,7 +25,7 @@ void playerColl(Player & p){
         if(p.collide(f->getH())) {
             f->destroy();
 
-            p.destroy();
+            p.hurt();
         }
     }
     for(std::size_t i = 0; i<allDestroys.size(); i++){
@@ -27,7 +34,7 @@ void playerColl(Player & p){
         if(p.collide(f->getH())) {
             f->destroy();
 
-            p.destroy();
+            p.hurt();
         }
     }
 
@@ -188,19 +195,10 @@ void destStep(Player & p){
                 continue;
             }
 
-            if(e->collide(f->getH())) {
+            if(f->isActive() && e->collide(f->getH())) {
                 f->destroy();
-                /*
-                delete allBullets[j];
-                allBullets.erase(allBullets.begin() + j);
-                if(i >= allBullets.size()) i = allBullets.size()-1;
-                if (allBullets.size() == 0) {
-                    f = nullptr;
-                    break;
-                }
-                */
 
-                e->destroy();
+                e->hurt();
                 break;
             }
             f = nullptr;

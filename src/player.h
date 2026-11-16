@@ -15,6 +15,7 @@ public:
     void draw() const override;
     bool collide(const Hitbox &) const;
     void destroy();
+    void hurt();
     void reset();
     bool isActive() const;
     Vec2 getPos() const;
@@ -24,6 +25,7 @@ private:
     int shotTim = 0;
     Vec2 initPos;
     bool active = true;
+    int health = 3;
 };
 
 #endif

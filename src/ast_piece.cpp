@@ -1,4 +1,5 @@
 #include "ast_piece.h"
+#include "objLists.h"
 
 Texture2D t_astPiece [4];
 
@@ -29,6 +30,15 @@ void AstPiece::step(){
     if(pos[1] > screenHeight+30 || pos[1] < -30 || pos[0] < -30 || pos[0] > screenWidth+30) active = false;
 }
 
+void AstPiece::hurt(){
+    score += 1;
+    destroy();
+}
+
+void AstPiece::destroy(){
+    createSmoke(pos[0],pos[1],1);
+    Destroyable::destroy();
+}
 
 
 void AstPiece::draw() const{    

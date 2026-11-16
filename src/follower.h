@@ -17,6 +17,7 @@ public:
     void turnToPoint(Vec2 = Vec2(0,0));
     void shoot() override;
     void draw() const override;
+    void hurt() override;
 
 private:
 };

@@ -24,6 +24,10 @@ void BasicShot::shoot(){
     Shooters::shoot();
 }
 
+void BasicShot::hurt(){
+    score += 50;
+    Shooters::destroy();
+}
 
 
 void BasicShot::draw() const{    

@@ -14,7 +14,8 @@ public:
 
     void step() override;
     void draw() const override;
-    void destroy() override;    
+    void destroy() override;
+    void hurt() override;
 
 private:
     int spdRot;

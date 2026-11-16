@@ -12,6 +12,7 @@ public:
     bool collide(const Hitbox &) const;
     bool isActive() const;
     virtual void destroy();
+    virtual void hurt() = 0;
 
 protected:
     int sprScale = 2;

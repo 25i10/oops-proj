@@ -18,6 +18,7 @@ Player::~Player(){}
 
 void Player::reset(){
     pos = initPos;
+    health = 3;
     active = true;
 }
 
@@ -49,6 +50,11 @@ void Player::step(){
         shotTim = 0;
         spawnBullet(pos,Vec2(0,-1),0);
     }
+}
+
+void Player::hurt(){
+    if(health != 0) health--;
+    else destroy();
 }
 
 void Player::destroy(){

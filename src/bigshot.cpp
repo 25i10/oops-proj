@@ -25,6 +25,10 @@ void BigShot::shoot(){
     Shooters::shoot();
 }
 
+void BigShot::hurt(){
+    score += 100;
+    Shooters::destroy();
+}
 
 
 void BigShot::draw() const{    

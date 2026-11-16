@@ -28,6 +28,10 @@ void Follower::turnToPoint(Vec2 _p){
     if(pos[1] >= 64) dir = (_p - pos).norm();
 }
 
+void Follower::hurt(){
+    score += 75;
+    Shooters::destroy();
+}
 
 
 void Follower::draw() const{    

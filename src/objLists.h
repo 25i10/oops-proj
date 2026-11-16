@@ -2,6 +2,7 @@
 #define OBJ_LISTS
 
 #include "player.h"
+#include "smoke.h"
 
 #include "straight_bullet.h"
 #include "plr_bullet.h"
@@ -19,7 +20,12 @@
 
 #include <vector>
 
+void createSmoke(int,int,int=0);
+
 void playerColl(Player &);
+
+extern SmokeGen sm;
+extern int score;
 
 extern std::vector<Star *> allStars;
 void starGen();

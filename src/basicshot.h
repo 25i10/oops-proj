@@ -16,6 +16,7 @@ public:
     //void step() override;
     void shoot() override;
     void draw() const override;
+    void hurt() override;
 
 private:
 };

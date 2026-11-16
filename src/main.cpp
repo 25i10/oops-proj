@@ -8,6 +8,7 @@
 
 const int screenWidth = 800;
 const int screenHeight = 900;
+int highScore = 0;
 
 enum class gameState{
     START,
@@ -29,6 +30,7 @@ int main()
 
     gameState gs = gameState::START;
 
+    t_smoke = LoadTexture("res/smoke.png");
     t_asteroid = LoadTexture("res/rock.png");
     t_player = LoadTexture("res/plr.png");
 
@@ -63,8 +65,7 @@ int main()
     
     
     Player p(300,700);
-
-
+    
 
     while (!WindowShouldClose())
     {
@@ -78,6 +79,7 @@ int main()
 
             if(IsKeyPressed(KEY_SPACE)){
                 gs = gameState::GAME;
+                
                 
                 for(int i = 0; i<5; i++){
                     allDestroys.push_back(new BigShot(100+64*2*i));
@@ -93,14 +95,6 @@ int main()
             starGen();
             starStep();
 
-            
-            /*
-            if(allDestroys.size() <= 3){
-                for(int i = 0; i<10; i++){
-                    allDestroys.push_back(new Asteroid(100+64*i,-32));
-                }
-            }*/
-
             bulStep();
             destStep(p);
 
@@ -109,8 +103,16 @@ int main()
             playerColl(p);
             if(!p.isActive()) gs = gameState::LOSE;
 
-            //DrawText(TextFormat("FPS : %i",GetFPS()),0,0,20,WHITE);
-            DrawText(TextFormat("AST COUNT : %i, %i",astCount(),shootCount()),0,0,20,WHITE);
+            sm.step();
+            if(IsKeyPressed(KEY_L)) {
+                sm.smokeBurst(100,100);
+                for(int i = 0; i<5; i++){
+                    allDestroys.push_back(new Asteroid(100+64*2*i));
+                }
+            }
+
+            DrawText(TextFormat("Score : %i",score),0,0,20,WHITE);
+            //DrawText(TextFormat("AST COUNT : %i, %i",astCount(),shootCount()),0,0,20,WHITE);
 
             break;
 
@@ -121,10 +123,15 @@ int main()
             bulDraw();
             destDraw();
             p.draw();
+            highScore = std::max(highScore,score);
 
-            dispTextFromOrigin("YOU LOST",screenWidth/2,screenHeight/2,40,WHITE);
-            dispTextFromOrigin("Press SPACE to try again",screenWidth/2,screenHeight/2+45,20,WHITE);
+            dispTextFromOrigin("YOU LOST",screenWidth/2,screenHeight/2 - 40,40,WHITE);
+            dispTextFromOrigin("Press SPACE to try again",screenWidth/2,screenHeight/2+5,20,WHITE);
+            dispTextFromOrigin(TextFormat("Score : %i",score),screenWidth/2,screenHeight/2+30,20,WHITE);
+            dispTextFromOrigin(TextFormat("High Score : %i",highScore),screenWidth/2,screenHeight/2+55,20,WHITE);
             if(IsKeyPressed(KEY_SPACE)){
+                score = 0;
+
                 gs = gameState::GAME;
                 bulDestroy();
                 destDestroy();
@@ -159,6 +166,7 @@ int main()
     
     UnloadTexture(t_spBullet);
     UnloadTexture(t_spiralBullet);
+    UnloadTexture(t_smoke);
     for(Texture2D t : t_plrBullet) UnloadTexture(t);
     for(Texture2D t : t_strBullet) UnloadTexture(t);
     for(Texture2D t : t_star) UnloadTexture(t);
