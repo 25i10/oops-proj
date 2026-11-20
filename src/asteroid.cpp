@@ -36,17 +36,17 @@ void Asteroid::hurt(){
 }
 
 void Asteroid::destroy(){
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],0,dir.rotated( GetRandomValue(10,30)/100.0 )));
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],1,dir.rotated(-GetRandomValue(10,30)/100.0)));
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],2,dir.rotated(-GetRandomValue(70,100)/100.0)));
-    allDestroys.push_back(new AstPiece(pos[0],pos[1],3,dir.rotated(GetRandomValue(70,100)/100.0)));
+    DC.getVec().push_back(new AstPiece(pos[0],pos[1],0,dir.rotated( GetRandomValue(10,30)/100.0 )));
+    DC.getVec().push_back(new AstPiece(pos[0],pos[1],1,dir.rotated(-GetRandomValue(10,30)/100.0)));
+    DC.getVec().push_back(new AstPiece(pos[0],pos[1],2,dir.rotated(-GetRandomValue(70,100)/100.0)));
+    DC.getVec().push_back(new AstPiece(pos[0],pos[1],3,dir.rotated(GetRandomValue(70,100)/100.0)));
 
-    createSmoke(pos[0],pos[1],1);
     Destroyable::destroy();
+    SM.smokeBurst(pos[0],pos[1],1);
 }
 
 
-void Asteroid::draw() const{    
-    DrawTexturePro(t_asteroid,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
+void Asteroid::draw() const{
+    if(active) DrawTexturePro(t_asteroid,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
     Entity::draw();
 }

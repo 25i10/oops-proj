@@ -36,13 +36,13 @@ void AstPiece::hurt(){
 }
 
 void AstPiece::destroy(){
-    createSmoke(pos[0],pos[1],1);
+    SM.smokeBurst(pos[0],pos[1],1);
     Destroyable::destroy();
 }
 
 
 void AstPiece::draw() const{    
     //DrawTexturePro(t_AstPiece,(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},GetTime()*spdRot*50*PI,WHITE);
-    DrawTexturePro(t_astPiece[frame],(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},0,WHITE);
+    if(active) DrawTexturePro(t_astPiece[frame],(Rectangle){0,0,sprDims[0]/sprScale,sprDims[1]/sprScale},(Rectangle){pos[0],pos[1],sprDims[0],sprDims[1]},Vector2{sprDims[0]/sprScale,sprDims[1]/sprScale},0,WHITE);
     Entity::draw();
 }

@@ -2,6 +2,7 @@
 #include "objLists.h"
 
 Texture2D t_player;
+Texture2D t_heart;
 
 Player::Player(int x, int y):Entity(x,y,8),initPos(x,y){
     sprDims = sprScale * Vec2(t_player.width,t_player.height);
@@ -42,19 +43,32 @@ void Player::step(){
         shotTim++;
         if(shotTim >= 12){
             shotTim = 0;
-            spawnBullet(pos,Vec2(0,-1),0);
+            BC.spawnBullet(pos,Vec2(0,-1),0);
         }
     }
 
     if(IsKeyPressed(KEY_SPACE)) {
         shotTim = 0;
-        spawnBullet(pos,Vec2(0,-1),0);
+        BC.spawnBullet(pos,Vec2(0,-1),0);
+    }
+
+    if(iTime > 0){
+        if(iTime % 3 ==0) visible = !visible;
+        iTime--;
+        if(iTime == 0) visible = true;
     }
 }
 
 void Player::hurt(){
-    if(health != 0) health--;
+    if(health != 0){
+        iTime = 80;
+        health--;
+    }
     else destroy();
+}
+
+bool Player::iFrame() const{
+    return iTime>0;
 }
 
 void Player::destroy(){
@@ -75,6 +89,11 @@ bool Player::collide(const Hitbox & e) const{
 }
 
 void Player::draw() const{
-    DrawTextureEx(t_player,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
+    if(visible) DrawTextureEx(t_player,Vector2{pos[0] - sprDims[0]/2,pos[1]-sprDims[1]/2},0,sprScale,WHITE);
+
+    if(health >= 1) DrawTextureEx(t_heart,Vector2{800-64,900-64},0,1,WHITE);
+    if(health >= 2) DrawTextureEx(t_heart,Vector2{800-96,900-64},0,1,WHITE);
+    if(health >= 3) DrawTextureEx(t_heart,Vector2{800-128,900-64},0,1,WHITE);
+
     Entity::draw();
 }

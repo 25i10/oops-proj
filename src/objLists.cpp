@@ -2,20 +2,16 @@
 #include "raylib.h"
 #include <iostream>
 
-std::vector<Bullet*> allBullets;
-std::vector<Destroyable*> allDestroys;
-std::vector<Star*> allStars;
-
-SmokeGen sm;
 int score;
+SmokeGen SM;
+bulController BC;
+destController DC;
 
-void createSmoke(int x, int y, int c){
-    sm.smokeBurst(x,y,c);
-}
 
-void playerColl(Player & p){
-    for(std::size_t i = 0; i<allBullets.size(); i++){
-        Bullet *f = allBullets[i];
+void destController::playerColl(Player & p){
+    if(p.iFrame()) return;
+    for(std::size_t i = 0; i<BC.getSize(); i++){
+        Bullet *f = BC.getIndex(i);
 
         if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)){
             s = nullptr;
@@ -28,8 +24,8 @@ void playerColl(Player & p){
             p.hurt();
         }
     }
-    for(std::size_t i = 0; i<allDestroys.size(); i++){
-        Destroyable *f = allDestroys[i];
+    for(std::size_t i = 0; i<DC.getSize(); i++){
+        Destroyable *f = DC.getVec()[i];
         
         if(p.collide(f->getH())) {
             f->destroy();
@@ -42,13 +38,13 @@ void playerColl(Player & p){
 
 
 
-void bulStep(){
-    for(std::size_t i = 0; i < allBullets.size(); i++){
+void bulController::step(){
+    for(std::size_t i = 0; i < BC.getSize(); i++){
         Bullet *e = allBullets[i];
 
         if(Spiralspread_bullet* k = dynamic_cast<Spiralspread_bullet *>(e)){
-            for(std::size_t j = 0; j<allBullets.size(); j++){
-                Bullet *f = allBullets[j];
+            for(std::size_t j = 0; j<BC.getSize(); j++){
+                Bullet *f = BC.getIndex(j);
 
                 if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)) s = nullptr;
                 else {
@@ -69,8 +65,8 @@ void bulStep(){
         if(!e->isActive()) {
             delete allBullets[i];
             allBullets.erase(allBullets.begin() + i);
-            if(i >= allBullets.size()) i = allBullets.size()-1;
-            if (allBullets.size() == 0) {
+            if(i >= BC.getSize()) i = BC.getSize()-1;
+            if (BC.getSize() == 0) {
                 e = nullptr;
                 break;
             }
@@ -84,20 +80,28 @@ void bulStep(){
     }
 }
 
-void bulDraw(){
+void bulController::draw(){
     for(Bullet* i : allBullets){
         i->draw();
     }
 }
 
-void bulDestroy(){
+void bulController::destroy(){
     for(Bullet* e : allBullets){
         delete e;
     }
     allBullets.clear();
 }
 
-void spawnBullet(Vec2 pos, Vec2 dir, int type){
+std::size_t bulController::getSize() const{
+    return allBullets.size();
+}
+
+Bullet* bulController::getIndex(int i) const{
+    return allBullets[i];
+}
+
+void bulController::spawnBullet(Vec2 pos, Vec2 dir, int type){
     switch(type){
         case 0:
         allBullets.push_back(new PlrBullet(pos[0],pos[1]-28,dir));
@@ -122,14 +126,14 @@ void spawnBullet(Vec2 pos, Vec2 dir, int type){
 
 
 
-void starGen(){
+void starController::gen(){
     static bool s = true;
     const int screenWidth = GetScreenWidth();
     if( s )allStars.push_back(new Star(GetRandomValue(0,screenWidth),-10));
     s = !s;
 }
 
-void starStep(){
+void starController::step(){
     for(std::size_t i = 0; i < allStars.size(); i++){
         Star *e = allStars[i];
 
@@ -146,13 +150,13 @@ void starStep(){
     }
 }
 
-void starDraw(){
+void starController::draw(){
     for(Star* i : allStars){
         i->draw();
     }
 }
 
-void starDestroy(){
+void starController::destroy(){
     for(Star* e : allStars){
         delete e;
     }
@@ -163,7 +167,7 @@ void starDestroy(){
 
 
 
-void destStep(Player & p){
+void destController::step(Player & p){
     for(std::size_t i = 0; i < allDestroys.size(); i++){
         Destroyable *e = allDestroys[i];
 
@@ -186,8 +190,8 @@ void destStep(Player & p){
         e->step();
         e->draw();
 
-        for(std::size_t j = 0; j<allBullets.size(); j++){
-            Bullet *f = allBullets[j];
+        for(std::size_t j = 0; j<BC.getSize(); j++){
+            Bullet *f = BC.getIndex(j);
 
             if(PlrBullet* s = dynamic_cast<PlrBullet *>(f)) s = nullptr;
             else {
@@ -208,7 +212,7 @@ void destStep(Player & p){
     }
 }
 
-int astCount(){
+int destController::astCount(){
     int a = 0;
     for(Destroyable *d : allDestroys){
         if(Asteroid* s = dynamic_cast<Asteroid *>(d)){
@@ -227,7 +231,7 @@ int astCount(){
     return a;
 }
 
-int shootCount(){
+int destController::shootCount(){
     int a = 0;
     for(Destroyable *d : allDestroys){
         if(Shooters* s = dynamic_cast<Shooters *>(d)){
@@ -238,13 +242,25 @@ int shootCount(){
     return a;
 }
 
-void destDraw(){
+std::size_t destController::getSize() const{
+    return allDestroys.size();
+}
+
+bool destController::isEmpty() const{
+    return allDestroys.empty();
+}
+
+std::vector<Destroyable*> & destController::getVec(){
+    return allDestroys;
+}
+
+void destController::draw(){
     for(Destroyable* i : allDestroys){
         i->draw();
     }
 }
 
-void destDestroy(){
+void destController::destroy(){
     for(Destroyable* e : allDestroys){
         delete e;
     }

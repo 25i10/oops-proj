@@ -20,7 +20,7 @@ BigShot::~BigShot(){}
 
 void BigShot::shoot(){
     Vec2 bulPos = pos + Vec2(0,12);
-    spawnBullet(bulPos,dir,2);
+    BC.spawnBullet(bulPos,dir,2);
     
     Shooters::shoot();
 }

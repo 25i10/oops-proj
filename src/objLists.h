@@ -20,30 +20,50 @@
 
 #include <vector>
 
-void createSmoke(int,int,int=0);
 
-void playerColl(Player &);
 
-extern SmokeGen sm;
+class starController{
+private:
+    std::vector<Star *> allStars;
+public:
+    void gen();
+    void step();
+    void draw();
+    void destroy();
+};
+
+class bulController{
+private:
+    std::vector<Bullet*> allBullets;
+public:
+    void step();
+    void draw();
+    void spawnBullet(Vec2 = Vec2(0,0), Vec2 = Vec2(0,0), int=0);
+    void destroy();
+
+    std::size_t getSize() const;
+    Bullet * getIndex(int) const;
+};
+
+class destController{
+private:
+    std::vector<Destroyable*> allDestroys;
+public:
+    void step(Player &);
+    void draw();
+    void destroy();
+    std::vector<Destroyable*> & getVec();
+    
+    bool isEmpty() const;
+    std::size_t getSize() const;
+    int astCount();
+    int shootCount();
+    void playerColl(Player &);
+};
+
+
 extern int score;
-
-extern std::vector<Star *> allStars;
-void starGen();
-void starStep();
-void starDraw();
-void starDestroy();
-extern std::vector<Bullet*> allBullets;
-void bulStep();
-void bulDraw();
-void spawnBullet(Vec2 = Vec2(0,0), Vec2 = Vec2(0,0), int=0);
-void bulDestroy();
-extern std::vector<Destroyable*> allDestroys;
-void destStep(Player &);
-void destDraw();
-void destDestroy();
-int astCount();
-int shootCount();
-
-
-
+extern SmokeGen SM;
+extern bulController BC;
+extern destController DC;
 #endif

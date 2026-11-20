@@ -5,6 +5,7 @@
 #include "raylib.h"
 
 extern Texture2D t_player;
+extern Texture2D t_heart;
 class Player : public Entity {
 
 public:
@@ -19,6 +20,7 @@ public:
     void reset();
     bool isActive() const;
     Vec2 getPos() const;
+    bool iFrame() const;
 
 private:
     bool shot;
@@ -26,6 +28,8 @@ private:
     Vec2 initPos;
     bool active = true;
     int health = 3;
+    int iTime = 0;
+    bool visible = true;
 };
 
 #endif

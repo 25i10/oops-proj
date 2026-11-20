@@ -23,25 +23,25 @@ void Spiralspread_bullet::desAction(){
     //float a = GetRandomValue(-4,4)/10.0;
     float a = 0;
 
-    spawnBullet(pos,Vec2(0,1).rotated(a),3);
-    spawnBullet(pos,Vec2(0,-1).rotated(a),3);
-    spawnBullet(pos,Vec2(1,0).rotated(a),3);
-    spawnBullet(pos,Vec2(-1,0).rotated(a),3);
-    spawnBullet(pos,Vec2(1,1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(1,-1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(-1,-1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(-1,1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(0,1).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(0,-1).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,0).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,0).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,-1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,-1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,1).norm().rotated(a),3);
 
     a = PI/8;
 
-    spawnBullet(pos,Vec2(0,1).rotated(a),3);
-    spawnBullet(pos,Vec2(0,-1).rotated(a),3);
-    spawnBullet(pos,Vec2(1,0).rotated(a),3);
-    spawnBullet(pos,Vec2(-1,0).rotated(a),3);
-    spawnBullet(pos,Vec2(1,1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(1,-1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(-1,-1).norm().rotated(a),3);
-    spawnBullet(pos,Vec2(-1,1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(0,1).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(0,-1).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,0).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,0).rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(1,-1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,-1).norm().rotated(a),3);
+    BC.spawnBullet(pos,Vec2(-1,1).norm().rotated(a),3);
 }
 
 void Spiralspread_bullet::draw() const{

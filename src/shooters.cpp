@@ -24,7 +24,7 @@ void Shooters::shoot(){
 }
 
 void Shooters::destroy(){
-    createSmoke(pos[0],pos[1]);
+    SM.smokeBurst(pos[0],pos[1]);
     
     Destroyable::destroy();
 }
